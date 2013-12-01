@@ -11,7 +11,8 @@ angular.module('storiesWorthLivingApp')
 
         $scope.photos = _.map(response.data, function(cur) {
           return {
-            src: _.first(cur.images).source
+            src: _.first(cur.images).source,
+            title: cur.name
           };
         });
       });
