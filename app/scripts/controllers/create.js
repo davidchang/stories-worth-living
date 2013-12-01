@@ -7,15 +7,38 @@ angular.module('storiesWorthLivingApp')
 
       $scope.photos = [];
 
-      facebookSDK.api('/me/photos').then(function(response) {
+      var nextParams = '';
+      var inTransit = false;
 
-        $scope.photos = _.map(response.data, function(cur) {
-          return {
-            src: _.first(cur.images).source,
-            title: cur.name
-          };
-        });
-      });
+      var handleResponse = function(response) {
+        $scope.photos = $scope.photos.concat(
+          _.map(response.data, function(cur) {
+            return {
+              // src: _.first(cur.images).source,
+              src: cur.source,
+              title: cur.name
+            };
+          })
+        );
+
+        nextParams = response.paging.next ?
+          _.last(response.paging.next.split('?')) :
+          undefined;
+
+        inTransit = false;
+      }
+
+      inTransit = true;
+      facebookSDK.api('/me/photos').then(handleResponse);
+
+      $scope.loadMore = function() {
+        if (inTransit || !nextParams) {
+          return;
+        }
+
+        inTransit = true;
+        facebookSDK.api('/me/photos?' + nextParams).then(handleResponse);
+      };
 
     }
   ]

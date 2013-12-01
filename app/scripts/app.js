@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('storiesWorthLivingApp', ['ngRoute', 'akoenig.deckgrid', 'firebase', 'facebookUtils'])
+angular.module('storiesWorthLivingApp', ['ngRoute', 'akoenig.deckgrid', 'firebase', 'facebookUtils', 'infinite-scroll'])
   .value('facebookConfigSettings', {
     'firebaseURL'    : 'https://davidchang.firebaseio.com/stories-worth-living',
     'permissions'    : 'user_photos',
