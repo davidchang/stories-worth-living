@@ -35,4 +35,14 @@ body {
         width: 100%;
         height: auto;
     }
+
+    h2 {
+        min-height: 150px;
+        border: 1px solid #CCC;
+        background-color: #CCC;
+        padding: 25px;
+        color: #333;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
 }

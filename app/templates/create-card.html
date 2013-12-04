@@ -1,3 +1,6 @@
 <div class="a-card">
-  <img src="" data-ng-src="{{card.src}}">
+  <img ng-if="card.type != 'time-card'"
+       src=""
+       data-ng-src="{{card.src}}">
+  <h2 ng-if="card.type == 'time-card'" ng-bind="card.time"></h2>
 </div>

@@ -14,9 +14,15 @@ angular.module('storiesWorthLivingApp')
         $scope.photos = $scope.photos.concat(
           _.map(response.data, function(cur) {
             return {
-              // src: _.first(cur.images).source,
               src: cur.source,
-              title: cur.name
+              title: cur.name,
+              from: cur.from.name,
+              name: cur.name,
+              place: !cur.place ? undefined : {
+                name: cur.place.name,
+                city: cur.place.location.city
+              },
+              time: cur.created_time
             };
           })
         );
