@@ -24,36 +24,19 @@ angular.module('storiesWorthLivingApp')
         });
       });
 
+
       var predefinedThemesRef = storiesRef.child('predefinedThemes');
       $scope.predefinedThemes = $firebase(predefinedThemesRef);
 
-      $scope.noSelectedThemes = function() {
-        return !_.some($scope.predefinedThemes, function(theme) {
-          return theme.selected;
-        });
-      };
 
-      $scope.addPredefined = function() {
-        _.each($scope.predefinedThemes, function(theme) {
-          if (theme.selected) {
-            theme.predefined = true;
-            theme.alreadyAdded = true;
-            $scope.stories.$add(theme);
-          }
-        });
-      };
-
-      $scope.addStory = function() {
+      $scope.addTheme = function() {
         $scope.stories.$add({
-          text : $scope.newStory,
-          url  : encodeURIComponent($scope.newStory)
+          text : $scope.newTheme,
+          url  : encodeURIComponent($scope.newTheme)
         });
-        $scope.newStory = '';
+        $scope.newTheme = '';
       };
 
-      $scope.clearAll = function() {
-        $scope.stories.$remove();
-      };
     }
   ]
 );

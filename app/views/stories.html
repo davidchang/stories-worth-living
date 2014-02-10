@@ -1,32 +1,42 @@
-<section>
-  <header>Stories:</header>
-  <ul>
-    <li ng-repeat="story in stories">
-      <a href='#/stories/{{story.url}}/'>{{story.text}}</a>
-    </li>
-  </ul>
-</section>
+<section class="themes">
 
-<section>
-  <header>Add A Predefined Theme:</header>
-  <ul class='horizontal'>
-    <li ng-hide="theme.alreadyAdded" ng-repeat="theme in predefinedThemes">
-      <label>
-        <input type="checkbox" ng-model="theme.selected"></input>
-        {{ theme.text }}
-      </label>
-    </li>
-  </ul>
-  <div class="clearfix">
-    <button class="btn btn-primary pull-right" ng-click="addPredefined()" ng-disabled="noSelectedThemes()">Add Selected Themes</
-  </div>
-</section>
+  <!--<table class="table">
+    <tbody>
+      <tr ng-repeat-start="theme in predefinedThemes">
+        <td rowspan="2">
+          <a class="themeTitle" href='#/themes/{{theme.url}}/'>{{theme.text}}</a>
+        </td>
+        <td>{{theme.question}}</td>
+      </tr>
+      <tr ng-repeat-end>
+        <td>
+          <textarea class="form-control" rows="1" ng-model="theme.quickAnswer"></textarea>
+          <div class="clearfix">
+            <button class="btn btn-primary pull-right" ng-click="addAnswer(theme)">Add Answer</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>-->
 
-<section>
-  <header>Or Your Own Custom Theme:</header>
-  <textarea class="form-control" rows="3" ng-model="newStory"></textarea>
-  <div class="clearfix">
-    <button class="btn btn-danger pull-right" ng-click="clearAll()">Clear</button>
-    <button class="btn btn-primary pull-right" ng-click="addStory()">Add Theme</button>
-  </div>
+  <section ng-repeat="theme in predefinedThemes">
+    <div>
+      <a href='#/themes/{{theme.url}}/'>{{theme.text}}</a>
+    </div>
+    <div>
+      <textarea class="form-control" rows="1" ng-model="theme.quickAnswer"></textarea>
+      <div class="clearfix">
+        <button class="btn btn-primary pull-right" ng-click="addAnswer(theme)">Add Answer</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="row" >
+    <header>Or Your Own Custom Theme:</header>
+    <textarea class="form-control" rows="1" ng-model="newTheme"></textarea>
+    <div class="clearfix">
+      <button class="btn btn-primary pull-right" ng-click="addTheme()">Add Theme</button>
+    </div>
+  </section>
+
 </section>

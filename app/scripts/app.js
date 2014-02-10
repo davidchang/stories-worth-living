@@ -13,12 +13,12 @@ angular.module('storiesWorthLivingApp', ['ngRoute', 'firebase', 'facebookUtils']
         templateUrl : 'views/main.html',
         controller  : 'MainCtrl'
       })
-      .when('/stories', {
+      .when('/themes', {
         templateUrl : 'views/stories.html',
         controller  : 'StoriesCtrl',
         needAuth    : true
       })
-      .when('/stories/:name', {
+      .when('/themes/:name', {
         templateUrl : 'views/story.html',
         controller  : 'StoryCtrl',
         needAuth    : true
