@@ -1,0 +1,32 @@
+<section>
+  <header>Stories:</header>
+  <ul>
+    <li ng-repeat="story in stories">
+      <a href='#/stories/{{story.url}}/'>{{story.text}}</a>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <header>Add A Predefined Theme:</header>
+  <ul class='horizontal'>
+    <li ng-hide="theme.alreadyAdded" ng-repeat="theme in predefinedThemes">
+      <label>
+        <input type="checkbox" ng-model="theme.selected"></input>
+        {{ theme.text }}
+      </label>
+    </li>
+  </ul>
+  <div class="clearfix">
+    <button class="btn btn-primary pull-right" ng-click="addPredefined()" ng-disabled="noSelectedThemes()">Add Selected Themes</
+  </div>
+</section>
+
+<section>
+  <header>Or Your Own Custom Theme:</header>
+  <textarea class="form-control" rows="3" ng-model="newStory"></textarea>
+  <div class="clearfix">
+    <button class="btn btn-danger pull-right" ng-click="clearAll()">Clear</button>
+    <button class="btn btn-primary pull-right" ng-click="addStory()">Add Theme</button>
+  </div>
+</section>

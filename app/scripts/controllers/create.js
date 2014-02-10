@@ -2,50 +2,30 @@
 
 angular.module('storiesWorthLivingApp')
   .controller('CreateCtrl', [
-    '$scope', 'facebookSDK',
-    function ($scope, facebookSDK) {
+    '$scope',
+    '$rootScope',
+    '$firebase',
+    'facebookUser',
+    function ($scope, $rootScope, $firebase, facebookUser) {
 
-      $scope.photos = [];
-
-      var nextParams = '';
-      var inTransit = false;
-
-      var handleResponse = function(response) {
-        $scope.photos = $scope.photos.concat(
-          _.map(response.data, function(cur) {
-            return {
-              src: cur.source,
-              title: cur.name,
-              from: cur.from.name,
-              name: cur.name,
-              place: !cur.place ? undefined : {
-                name: cur.place.name,
-                city: cur.place.location.city
-              },
-              time: cur.created_time
-            };
-          })
+      $rootScope.loggedInPromise.then(function() {
+        var storiesRef = new Firebase(
+          'https://davidchang.firebaseio.com/stories/' + $rootScope.loggedInUser.id
         );
+        $scope.stories = $firebase(storiesRef);
+      });
 
-        nextParams = response.paging.next ?
-          _.last(response.paging.next.split('?')) :
-          undefined;
-
-        inTransit = false;
-      }
-
-      inTransit = true;
-      facebookSDK.api('/me/photos').then(handleResponse);
-
-      $scope.loadMore = function() {
-        if (inTransit || !nextParams) {
-          return;
-        }
-
-        inTransit = true;
-        facebookSDK.api('/me/photos?' + nextParams).then(handleResponse);
+      $scope.addStory = function() {
+        $scope.stories.$add({
+          name : $scope.newStory,
+          url  : encodeURIComponent($scope.newStory)
+        });
+        $scope.newStory = '';
       };
 
+      $scope.clearAll = function() {
+        $scope.stories.$remove();
+      };
     }
   ]
 );

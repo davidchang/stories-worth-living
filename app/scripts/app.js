@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('storiesWorthLivingApp', ['ngRoute', 'akoenig.deckgrid', 'firebase', 'facebookUtils', 'infinite-scroll'])
-  .value('facebookConfigSettings', {
-    'firebaseURL'    : 'https://davidchang.firebaseio.com/stories-worth-living',
+angular.module('storiesWorthLivingApp', ['ngRoute', 'firebase', 'facebookUtils'])
+  .constant('facebookConfigSettings', {
     'permissions'    : 'user_photos',
     'routingEnabled' : true,
-    'loginPath'      : '/'
+    'loginPath'      : '/',
+    'appID'          : '335763733225618'
   })
   .config(function ($routeProvider) {
     $routeProvider
@@ -13,9 +13,14 @@ angular.module('storiesWorthLivingApp', ['ngRoute', 'akoenig.deckgrid', 'firebas
         templateUrl : 'views/main.html',
         controller  : 'MainCtrl'
       })
-      .when('/create', {
-        templateUrl : 'views/create.html',
-        controller  : 'CreateCtrl',
+      .when('/stories', {
+        templateUrl : 'views/stories.html',
+        controller  : 'StoriesCtrl',
+        needAuth    : true
+      })
+      .when('/stories/:name', {
+        templateUrl : 'views/story.html',
+        controller  : 'StoryCtrl',
         needAuth    : true
       })
       .otherwise({

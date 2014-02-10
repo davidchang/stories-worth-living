@@ -1,0 +1,22 @@
+<section>
+  <header>
+    <div>Answer the question of the day:</div>
+    <h2>{{ currentQuestion }}</h2>
+    <div ng-click="switchQuestions()">[Or choose another question]</div>
+  </header>
+
+  <textarea class="form-control" rows="3" ng-model="newStory"></textarea>
+  <div class="clearfix">
+    <button class="btn btn-danger pull-right" ng-click="clearAll()">Clear</button>
+    <button class="btn btn-primary pull-right" ng-click="addStory()">Add Story</button>
+  </div>
+</section>
+
+<section ng-repeat="story in stories">
+  <header>
+    {{ story.date | date:'mediumDate'}}
+  </header>
+  <div>
+    {{ story.text }}
+  </div>
+</section>
