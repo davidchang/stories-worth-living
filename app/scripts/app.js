@@ -13,19 +13,15 @@ angular.module('storiesWorthLivingApp', ['ngRoute', 'firebase', 'facebookUtils']
         templateUrl : 'views/main.html',
         controller  : 'MainCtrl'
       })
-      .when('/themes', {
-        templateUrl : 'views/stories.html',
-        controller  : 'StoriesCtrl',
-        needAuth    : true
-      })
-      .when('/themes/:name', {
-        templateUrl : 'views/story.html',
-        controller  : 'StoryCtrl',
+      .when('/answer', {
+        templateUrl : 'views/answer.html',
+        controller  : 'AnswerCtrl',
         needAuth    : true
       })
       .when('/admin/questions', {
-        templateUrl: 'views/admin/questions.html',
-        controller: 'AdminQuestionsCtrl'
+        templateUrl : 'views/admin/questions.html',
+        controller  : 'AdminQuestionsCtrl',
+        needAuth    : true
       })
       .otherwise({
         redirectTo : '/'

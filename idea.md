@@ -46,7 +46,7 @@ users : [{
     questionId : String (generated from Firebase),
     text : String (optional),
     date : Date,
-    private : Boolean
+    isPrivate : Boolean
   }],
   messages : {
     sent : [{

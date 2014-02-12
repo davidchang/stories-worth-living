@@ -7,13 +7,13 @@ angular.module('storiesWorthLivingApp')
       var storiesRef = new Firebase('https://davidchang.firebaseio.com/stories');
 
       return {
-        get : function(path) {
+        get : function(path, passRef) {
           if (!path) {
-            return $firebase(storiesRef);
+            return passRef ? storiesRef : $firebase(storiesRef);
           }
 
           var ref = storiesRef.child(path);
-          return $firebase(ref);
+          return passRef ? ref : $firebase(ref);
         }
       };
     }
