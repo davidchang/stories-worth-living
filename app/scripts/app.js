@@ -23,6 +23,10 @@ angular.module('storiesWorthLivingApp', ['ngRoute', 'firebase', 'facebookUtils']
         controller  : 'StoryCtrl',
         needAuth    : true
       })
+      .when('/admin/questions', {
+        templateUrl: 'views/admin/questions.html',
+        controller: 'AdminQuestionsCtrl'
+      })
       .otherwise({
         redirectTo : '/'
       });

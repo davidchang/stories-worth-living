@@ -60,3 +60,18 @@ ul.horizontal {
     }
   }
 }
+
+.section {
+  input[type=text] {
+    margin: 20px 0px;
+  }
+
+  input[type=submit] {
+    margin: 10px 0px;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}

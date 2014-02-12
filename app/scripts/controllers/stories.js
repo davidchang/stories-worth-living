@@ -11,7 +11,7 @@ angular.module('storiesWorthLivingApp')
       var storiesRef = new Firebase('https://davidchang.firebaseio.com/stories');
 
       $rootScope.loggedInPromise.then(function() {
-        var usersStoriesRef = storiesRef.child($rootScope.loggedInUser.id);
+        var usersStoriesRef = storiesRef.child('users/' + $rootScope.loggedInUser.id);
         $scope.stories = $firebase(usersStoriesRef);
 
         usersStoriesRef.on('child_added', function(snapshot) {

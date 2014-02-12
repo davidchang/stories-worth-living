@@ -1,0 +1,49 @@
+<secion class="section">
+  <section>
+    <h1>Themes</h1>
+
+    <form ng-submit="addTheme()">
+      <input type="text" class="form-control" placeholder="Theme Title" ng-model="newTheme"></input>
+
+      <ul>
+        <li ng-repeat="theme in themes">
+          {{theme.text}}
+        </li>
+      </ul>
+
+      <input type="submit" class="btn btn-primary"></input>
+    </form>
+
+  </section>
+
+  <section>
+    <h1>Questions</h1>
+
+    <form ng-submit="addQuestion()">
+      <input type="text" class="form-control" placeholder="Question Title" ng-model="newQuestion.text"></input>
+
+      <ul>
+        <li ng-repeat="theme in themes">
+          <label>
+            <input type="radio" name="themes" value="{{theme.text}}" ng-model="newQuestion.theme"></input>
+            {{theme.text}}
+          </label>
+        </li>
+      </ul>
+
+      <input type="submit" class="btn btn-primary"></input>
+    </form>
+
+    <table class='table'>
+      <tr>
+        <th>Text</th>
+        <th>Theme</th>
+      </tr>
+      <tr ng-repeat="question in questions">
+        <td>{{question.text}}</td>
+        <td>{{question.theme}}</td>
+      </tr>
+    </table>
+
+  </section>
+</section>
