@@ -1,0 +1,19 @@
+<section ng-show="userId" class="section">
+  <section ng-repeat="answer in answers">
+    <header>{{answer.questionText}}</header>
+    <div>{{answer.date}}</div>
+    <div>{{answer.text}}</div>
+  </section>
+
+  <section ng-show="loading">
+    Loading...
+  </section>
+
+  <section ng-hide="answers">
+    No questions have been publicly answered by this user.
+  </section>
+</section>
+
+<section ng-show="!userId">
+  You are looking for a user that does not exist!
+</section>

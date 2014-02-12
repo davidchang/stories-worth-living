@@ -31,7 +31,8 @@ Revisions, v3
 questions : [{
   numAnswers : int,
   text : String,
-  category : String
+  category : String,
+  enforcedFrequency : int (1 = 1 day, 30 = 30 days)
 }]
 
 themes : [{
@@ -66,3 +67,15 @@ users : [{
   }
 }
 }]
+
+2/12 progress
+-------------
+- Implemented admin interface to add questions, themes
+- Ability for a user to answer questions (right now, they can only answer each question once)
+- Db service for handling connections to Firebase. Pretty nifty, if I do say so myself
+- Ability to view /me and to view /users/:id? where :id? currently needs to be the Facebook ID
+
+Next Milestones:
+- Ability to Follow users
+- Make interface nicer, as it's just kind of a dump of data right now
+- Specify a time period for questions

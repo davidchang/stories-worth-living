@@ -25,7 +25,7 @@ angular.module('storiesWorthLivingApp')
             $rootScope.loggedInUser = response;
             loggedInPromise.resolve();
 
-            $location.path('/stories');
+            $location.path('/answer');
           });
         }, function() {
           loggedInPromise.reject();

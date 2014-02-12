@@ -1,14 +1,20 @@
 <section class="section">
 
-  <h1>{{questions[questionIndex].text}}</h1>
-  <textarea class="form-control" rows="3" ng-model="answer.text"></textarea>
-  <label>
-    <input type="checkbox" ng-model="answer.isPrivate"></input>
-    Keep Answer Private
-  </label>
-  <div class="clearfix">
-    <button class="btn btn-danger pull-right" ng-click="next()">Skip Question</button>
-    <button class="btn btn-primary pull-right" ng-click="submit()">Submit Answer</button>
-  </div>
+  <section ng-show="questions[questionIndex]">
+    <h1>{{questions[questionIndex].text}}</h1>
+    <textarea class="form-control" rows="3" ng-model="answer.text"></textarea>
+    <label>
+      <input type="checkbox" ng-model="answer.isPrivate"></input>
+      Keep Answer Private
+    </label>
+    <div class="clearfix">
+      <button class="btn btn-danger pull-right" ng-click="next()">Skip Question</button>
+      <button class="btn btn-primary pull-right" ng-click="submit()">Submit Answer</button>
+    </div>
+  </section>
+
+  <section ng-hide="questions[questionIndex]">
+    You did all of the questions! How embarrassing
+  </section>
 
 </section>

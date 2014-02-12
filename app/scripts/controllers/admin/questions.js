@@ -6,7 +6,7 @@ angular.module('storiesWorthLivingApp')
     'Db',
     function ($scope, Db) {
 
-      $scope.themes = Db.get('themes');
+      $scope.themes = Db.getConn('themes');
 
       $scope.addTheme = function() {
         $scope.themes.$add({
@@ -15,7 +15,7 @@ angular.module('storiesWorthLivingApp')
         $scope.newTheme = '';
       };
 
-      $scope.questions = Db.get('questions');
+      $scope.questions = Db.getConn('questions');
 
       $scope.addQuestion = function() {
         $scope.questions.$add($scope.newQuestion);

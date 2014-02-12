@@ -1,0 +1,16 @@
+<section class="section">
+  <section ng-repeat="answer in answers">
+    <header>{{answer.questionText}}</header>
+    <div>{{answer.isPrivate}}</div>
+    <div>{{answer.date}}</div>
+    <div>{{answer.text}}</div>
+  </section>
+
+  <section ng-show="loading">
+    Loading...
+  </section>
+
+  <section ng-hide="answers">
+    Looks like you haven't answered any questions! Go to <a href="#/answer">/answer</a> to change that!
+  </section>
+</section>
