@@ -75,7 +75,24 @@ users : [{
 - Db service for handling connections to Firebase. Pretty nifty, if I do say so myself
 - Ability to view /me and to view /users/:id? where :id? currently needs to be the Facebook ID
 
+
 Next Milestones:
-- Ability to Follow users
-- Make interface nicer, as it's just kind of a dump of data right now
-- Specify a time period for questions
+- Ability to Follow users (done 2/15)
+- Make interface nicer, as it's just kind of a dump of data right now (done 2/15)
+- Specify a time interval for questions (done 2/15)
+
+Considerations:
+- Switch to Firebase social Auth? especially since you've yet to really use Facebook photos or anything uniquely
+
+
+2/15 progress
+-------------
+- Used Garamond font from Google API, cleaned up some styles on /me and /answer
+- Added interval for questions in Firebase and /questions, enforced in answer.js
+- Imported angular-contenteditable for /answer (looks much nicer)
+- Following capability, show who you're following on /me and the user's followers on /user/:id?
+
+Next Milestones:
+- Build concept of questions with hidden answers
+- notification asking you to exchange answer
+- notification asking you to answer question

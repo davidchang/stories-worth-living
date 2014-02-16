@@ -4,12 +4,12 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 /* Put your CSS here */
 html, body {
   margin: 20px;
+  font-size: 1.2em;
 }
 
 body {
     background: #fafafa;
-    /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
-    font-family: 'Carme', sans-serif;
+    font-family: 'EB Garamond', serif;
     color: #333;
 
     > header {
@@ -73,5 +73,29 @@ ul.horizontal {
   li {
     display: inline-block;
     margin-right: 10px;
+  }
+
+  .btn + .btn {
+    margin-right: 15px;
+  }
+
+  .skip-question {
+    margin-left: 15px;
+    cursor: pointer;
+  }
+
+  .content-editable {
+    padding: 25px 0px;
+    margin: 20px 0px;
+    border-bottom: 1px solid #CCC;
+    border-top: 1px solid #CCC;
+
+    &:focus, &:active {
+      outline: -webkit-focus-ring-color auto 0px !important;
+    }
+  }
+
+  .follow-container {
+    margin-bottom: 20px;
   }
 }

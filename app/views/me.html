@@ -1,10 +1,18 @@
 <section class="section">
-  <section ng-repeat="answer in answers">
-    <header>{{answer.questionText}}</header>
-    <div>{{answer.isPrivate}}</div>
-    <div>{{answer.date}}</div>
-    <div>{{answer.text}}</div>
-  </section>
+
+  <div class="panel" ng-class="{'panel-danger' : answer.isPrivate, 'panel-success' : !answer.isPrivate }" ng-repeat="answer in answers">
+    <div class="panel-heading clearfix">
+      <h3 class="pull-left panel-title">
+        {{answer.questionText}}
+        <span ng-show="answer.isPrivate">(Private)</span>
+        <span ng-show="!answer.isPrivate">(Public)</span>
+      </h3>
+      <h4 class="pull-right panel-title">{{answer.date | date:mediumDate}}</h4>
+    </div>
+    <div class="panel-body">
+      <div>{{answer.text}}</div>
+    </div>
+  </div>
 
   <section ng-show="loading">
     Loading...
@@ -13,4 +21,14 @@
   <section ng-hide="answers">
     Looks like you haven't answered any questions! Go to <a href="#/answer">/answer</a> to change that!
   </section>
+
+  <h1>Following</h1>
+  <div ng-show="following">
+    <div ng-repeat="follower in following">
+      <a href="#/user/{{ follower }}">{{follower}}</a>
+    </div>
+  </div>
+  <div ng-show="!following">
+    Looks like you're not following anyone!
+  </div>
 </section>

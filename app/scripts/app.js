@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('storiesWorthLivingApp', ['ngRoute', 'firebase', 'facebookUtils'])
+angular.module('storiesWorthLivingApp', ['ngRoute', 'firebase', 'facebookUtils', 'contenteditable'])
   .constant('facebookConfigSettings', {
     'permissions'    : 'user_photos',
     'routingEnabled' : true,

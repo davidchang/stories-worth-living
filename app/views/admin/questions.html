@@ -22,6 +22,8 @@
     <form ng-submit="addQuestion()">
       <input type="text" class="form-control" placeholder="Question Title" ng-model="newQuestion.text"></input>
 
+      <input type="text" class="form-control" placeholder="Question Interval (in days, like 1, 90, 360)" ng-model="newQuestion.interval"></input>
+
       <ul>
         <li ng-repeat="theme in themes">
           <label>
@@ -38,10 +40,12 @@
       <tr>
         <th>Text</th>
         <th>Theme</th>
+        <th>Interval</th>
       </tr>
       <tr ng-repeat="question in questions">
         <td>{{question.text}}</td>
         <td>{{question.theme}}</td>
+        <td>{{question.interval}}</td>
       </tr>
     </table>
 

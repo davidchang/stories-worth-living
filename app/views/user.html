@@ -1,9 +1,23 @@
 <section ng-show="userId" class="section">
-  <section ng-repeat="answer in answers">
-    <header>{{answer.questionText}}</header>
-    <div>{{answer.date}}</div>
-    <div>{{answer.text}}</div>
-  </section>
+
+  <div class="follow-container">
+    <button ng-disabled="!myFollowers" class="btn btn-primary" ng-click="toggleFollow()">
+      <span ng-show="!isFollowing()">Follow</span>
+      <span ng-show="isFollowing()">Unfollow</span>
+    </button>
+  </div>
+
+  <div class="panel panel-success" ng-hide="answer.isPrivate" ng-repeat="answer in answers">
+    <div class="panel-heading clearfix">
+      <h3 class="pull-left panel-title">
+        {{answer.questionText}}
+      </h3>
+      <h4 class="pull-right panel-title">{{answer.date | date:mediumDate}}</h4>
+    </div>
+    <div class="panel-body">
+      <div>{{answer.text}}</div>
+    </div>
+  </div>
 
   <section ng-show="loading">
     Loading...
@@ -16,4 +30,13 @@
 
 <section ng-show="!userId">
   You are looking for a user that does not exist!
+</section>
+
+<section ng-show="userFollowers">
+  <h1>Followed By</h1>
+  <div>
+    <div ng-repeat="follower in userFollowers">
+      <a href="#/user/{{ follower }}">{{follower}}</a>
+    </div>
+  </div>
 </section>
