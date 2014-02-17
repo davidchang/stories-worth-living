@@ -1,7 +1,7 @@
 <section class="section">
 
-  <section ng-show="questions[questionIndex]">
-    <h1>{{questions[questionIndex].text}}<small class="text-danger skip-question" ng-click="next()">(Skip Question)</small></h1>
+  <section ng-show="displayedQuestions[questionIndex]">
+    <h1>{{displayedQuestions[questionIndex].text}}<small class="text-danger skip-question" ng-click="nextQuestion()">(Skip Question)</small></h1>
 
     <div
       class="content-editable"
@@ -17,7 +17,7 @@
     </div>
   </section>
 
-  <section ng-hide="questions[questionIndex]">
+  <section ng-hide="displayedQuestions[questionIndex]">
     You did all of the questions!
   </section>
 

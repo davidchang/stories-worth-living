@@ -2,17 +2,13 @@
 
 angular.module('storiesWorthLivingApp')
   .controller('MeCtrl', [
-    '$rootScope',
     '$scope',
-    'Db',
-    function ($rootScope, $scope, Db) {
+    'Medao',
+    function ($scope, meDao) {
 
-      $rootScope.loggedInPromise.then(function() {
-        // fetch all answers
-        $scope.answers = Db.getConn('users/' + $rootScope.loggedInUser.id + '/answers');
-
-        // fetch users that you're following
-        $scope.following = Db.getConn('users/' + $rootScope.loggedInUser.id + '/following');
+      meDao.then(function(me) {
+        $scope.answers = me.getAnswers();
+        $scope.following = me.getUsersFollowing();
       });
 
     }

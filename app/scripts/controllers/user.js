@@ -3,56 +3,45 @@
 angular.module('storiesWorthLivingApp')
   .controller('UserCtrl', [
     '$scope',
-    'Db',
     '$routeParams',
     '$rootScope',
-    function ($scope, Db, $routeParams, $rootScope) {
+    'Userdao',
+    'Medao',
+    'Db',
+    function ($scope, $routeParams, $rootScope, userDao, meDao, Db) {
 
       $scope.userId = $routeParams.id;
+      userDao.setId($routeParams.id);
 
       // we should only fetch public answers
-      $scope.answers = Db.getConn('users/' + $routeParams.id + '/answers');
-      var userFollowers = Db.get('users/' + $routeParams.id + '/followers');
-      $scope.userFollowers = userFollowers.conn;
+      $scope.answers = userDao.getAnswers();
+      $scope.userFollowers = userDao.getFollowers();
+
 
 
       /* FOLLOWING FEATURE */
       $scope.myFollowers = [];
       if ($scope.userId) {
-        var userFollowingRef;
-        $rootScope.loggedInPromise.then(function() {
-          var db = Db.get('users/' + $rootScope.loggedInUser.id + '/following');
-          $scope.myFollowers = db.conn;
-          userFollowingRef = db.ref;
+        meDao.then(function(me) {
+          $scope.myFollowers = me.getUsersFollowing();
+
+          $scope.isFollowing = function() {
+            return _.contains($scope.myFollowers, $scope.userId);
+          };
+
+          $scope.toggleFollow = function() {
+
+            if ($scope.isFollowing()) {
+
+              Db.remove($scope.myFollowers, $scope.userId);
+              Db.remove($scope.userFollowers, $rootScope.loggedInUser.id);
+
+            } else {
+              $scope.myFollowers.$add($scope.userId);
+              $scope.userFollowers.$add($rootScope.loggedInUser.id);
+            }
+          };
         });
-
-        $scope.isFollowing = function() {
-          return _.contains($scope.myFollowers, $scope.userId);
-        };
-
-        $scope.toggleFollow = function() {
-
-          if ($scope.isFollowing()) {
-
-            var removeKey = function(array, lookingFor, dbRef) {
-              var foundKey;
-              _.each(array, function(val, key) {
-                if (!foundKey && val === lookingFor) {
-                  foundKey = key;
-                }
-              });
-
-              dbRef.child(foundKey).remove();
-            };
-
-            removeKey($scope.myFollowers, $scope.userId, userFollowingRef);
-            removeKey($scope.userFollowers, $rootScope.loggedInUser.id, userFollowers.ref);
-
-          } else {
-            $scope.myFollowers.$add($scope.userId);
-            $scope.userFollowers.$add($rootScope.loggedInUser.id);
-          }
-        };
       }
       /* END FOLLOWING FEATURE */
 

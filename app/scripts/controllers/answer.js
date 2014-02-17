@@ -5,7 +5,8 @@ angular.module('storiesWorthLivingApp')
     '$rootScope',
     '$scope',
     'Db',
-    function ($rootScope, $scope, Db) {
+    'Medao',
+    function ($rootScope, $scope, Db, meDao) {
 
       /* Questions */
 
@@ -13,39 +14,33 @@ angular.module('storiesWorthLivingApp')
       // If they can only answer it every day, then they need to be able to come back and answer this once a day
       var reconcileQuestionsWithAnswers = function() {
 
+        $scope.questionIndex = 0;
+        $scope.displayedQuestions = [];
+
         if (!$scope.questions || !answeredQuestions) {
           return;
         }
+
         var today = new Date();
-        var curQuestion = $scope.questions[$scope.questionIndex];
-        $scope.questions = _.filter($scope.questions, function(question) {
-          if (!answeredQuestions[question.key]) {
-            return true;
+
+        _.each($scope.questions.$getIndex(), function(key) {
+          var question = $scope.questions[key];
+          question.key = key;
+
+          if (!answeredQuestions[key] || (daysInBetween(today, answeredQuestions[question.key].date) >= question.interval)) {
+            $scope.displayedQuestions.push(question);
           }
-
-          return daysInBetween(today, answeredQuestions[question.key].date) > question.interval;
         });
-
-        var index = _.indexOf($scope.questions, curQuestion);
-        $scope.questionIndex = index > -1 ? index : 0;
       };
 
-      $scope.questionIndex = 0;
-      $scope.questions = [];
-
-      Db.getRef('questions').on('child_added', function(snapshot) {
-        var val = snapshot.val();
-        val.key = snapshot.name();
-        $scope.questions.push(val);
-
+      $scope.questions = Db.getConn('questions');
+      $scope.questions.$on('loaded', function() {
         reconcileQuestionsWithAnswers();
-
-        if (!$scope.$$phase) {
-          $scope.$apply();
-        }
+        $scope.questions.$off('loaded');
       });
 
-      $scope.next = function() {
+
+      $scope.nextQuestion = function() {
         $scope.questionIndex++;
       };
       /* End Questions */
@@ -59,18 +54,19 @@ angular.module('storiesWorthLivingApp')
       var answeredQuestions = {};
 
       $scope.userAnswers = { $add : angular.noop };
-      $rootScope.loggedInPromise.then(function() {
-        var db = Db.get('users/' + $rootScope.loggedInUser.id + '/answers');
-        db.ref.on('child_added', function(snapshot) {
-          // should capture only the most recent answer for that question
-          var val = snapshot.val();
+      meDao.then(function(me) {
+        $scope.userAnswers = me.getAnswers();
+        $scope.userAnswers.$on('loaded', function() {
+          _.each($scope.userAnswers.$getIndex(), function(key) {
+            var answer = $scope.userAnswers[key];
+            answeredQuestions[answer.questionId] = {
+              date : new Date(answer.date)
+            }
+          });
 
-          answeredQuestions[val.questionId] = {
-            date : new Date(val.date)
-          };
           reconcileQuestionsWithAnswers();
+          $scope.userAnswers.$off('loaded');
         });
-        $scope.userAnswers = db.conn;
       });
 
       $scope.submit = function(isPrivate) {
@@ -83,7 +79,7 @@ angular.module('storiesWorthLivingApp')
         });
 
         $scope.answer.text = '';
-        $scope.next();
+        $scope.nextQuestion();
       };
       /* End Answers */
 

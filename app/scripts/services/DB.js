@@ -20,6 +20,16 @@ angular.module('storiesWorthLivingApp')
 
           var ref = storiesRef.child(path);
           return { ref : ref, conn : $firebase(ref) };
+        },
+        remove : function(dbRef, lookingFor) {
+          var foundKey;
+          _.each(dbRef.$getIndex(), function(key) {
+            if (!foundKey && dbRef[key] === lookingFor) {
+              foundKey = key;
+            }
+          });
+
+          foundKey && dbRef.$remove(foundKey);
         }
       };
     }
