@@ -93,6 +93,20 @@ Considerations:
 - Following capability, show who you're following on /me and the user's followers on /user/:id?
 
 Next Milestones:
-- Build concept of questions with hidden answers
-- notification asking you to exchange answer
-- notification asking you to answer question
+- Build concept of questions with hidden answers (done 2/18)
+- notification asking you to exchange answer (done 2/18)
+- notification asking you to answer question (rudimentarily done 2/18)
+
+2/18 progress
+-------------
+- Implemented hidden answers if marked private, showing if you are marked as a friend
+- Sending notifications to exchange an answer or to send a friend request
+- Not too pretty interface where you can select a question to ask the user and send them a notification
+
+Next Milestones:
+- Build notification center
+- Implement a Zen mode
+
+Considerations:
+- Need to fix login bug that redirects back to /answer
+- Look into just using Firebase hosting

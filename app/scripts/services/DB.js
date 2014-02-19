@@ -30,6 +30,9 @@ angular.module('storiesWorthLivingApp')
           });
 
           foundKey && dbRef.$remove(foundKey);
+        },
+        contains : function(dbRef, lookingFor) {
+          return _.findWhere(dbRef, lookingFor);
         }
       };
     }

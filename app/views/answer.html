@@ -1,7 +1,12 @@
 <section class="section">
 
   <section ng-show="displayedQuestions[questionIndex]">
-    <h1>{{displayedQuestions[questionIndex].text}}<small class="text-danger skip-question" ng-click="nextQuestion()">(Skip Question)</small></h1>
+    <header class="clearfix">
+      <h1 class="pull-left">{{displayedQuestions[questionIndex].text}}<small class="text-danger skip-question" ng-click="nextQuestion()">(Skip Question)</small></h1>
+      <div class="zen-mode pull-right" ng-click="enterZenMode()">
+        Enter Zen Mode
+      </div>
+    </header>
 
     <div
       class="content-editable"

@@ -1,21 +1,57 @@
 <section ng-show="userId" class="section">
 
   <div class="follow-container">
-    <button ng-disabled="!myFollowers" class="btn btn-primary" ng-click="toggleFollow()">
+    <button ng-hide="getFriendStatus() == 'accepted'" ng-disabled="!myFollowers" class="btn btn-primary" ng-click="toggleFollow()">
       <span ng-show="!isFollowing()">Follow</span>
       <span ng-show="isFollowing()">Unfollow</span>
     </button>
+
+    <button ng-disabled="!myFriends || getFriendStatus() == 'pending'" class="btn btn-primary" ng-click="friendAction()">
+      <span ng-show="getFriendStatus() == 'none'">Send Friend Request</span>
+      <span ng-show="getFriendStatus() == 'pending'">Friend Request Pending</span>
+      <span ng-show="getFriendStatus() == 'accepted'">Unfriend</span>
+    </button>
+
+    <span ng-show="myAnswers">
+      <span>Ask them to answer a question you answered:</span>
+      <select ng-disabled="ask.progress" ng-model="ask.question" ng-options="id as text for (id, text) in myAnswers">
+        <option value="">Choose a Question You Answered...</option>
+      </select>
+      <button ng-show="ask.question" ng-disabled="ask.progress" class="btn btn-primary" ng-click="askQuestion()">
+        <span ng-show="!ask.progress">Ask Question</span>
+        <span ng-show="ask.progress">Question asked</span>
+      </button>
+    </span>
   </div>
 
-  <div class="panel panel-success" ng-hide="answer.isPrivate" ng-repeat="answer in answers">
+  <div class="panel" ng-class="{'panel-success' : !answer.isPrivate, 'panel-danger' : answer.isPrivate, 'panel-info' : answer.isPrivate && getFriendStatus() == 'accepted'}" ng-repeat="answer in answers">
     <div class="panel-heading clearfix">
       <h3 class="pull-left panel-title">
         {{answer.questionText}}
+
+        <i ng-show="!answer.isPrivate">
+          (Public Answer)
+        </i>
+        <i ng-show="answer.isPrivate && getFriendStatus() != 'accepted'">
+          (Private Answer)
+        </i>
+        <i ng-show="answer.isPrivate && getFriendStatus() == 'accepted'">
+          (Private Answer, but you are Friends)
+        </i>
       </h3>
       <h4 class="pull-right panel-title">{{answer.date | date:mediumDate}}</h4>
     </div>
     <div class="panel-body">
-      <div>{{answer.text}}</div>
+      <div ng-show="!answer.isPrivate || getFriendStatus() == 'accepted'">
+        <p>{{answer.text}}</p>
+      </div>
+      <div ng-show="answer.isPrivate && getFriendStatus() != 'accepted'">
+        <p>Answer has been marked private</p>
+        <p ng-show="answered(answer.questionId)">
+          You've answered this question too. Do you want to exchange answers?
+          <button class="btn btn-primary" ng-click="exchangeAnswers(answer)">Exchange</button>
+        </p>
+      </div>
     </div>
   </div>
 

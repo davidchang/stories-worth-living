@@ -21,8 +21,12 @@ angular.module('storiesWorthLivingApp')
         return $firebase(this.db.ref.child('/following'));
       };
 
-      User.prototype.getFollowers = function(getRef) {
+      User.prototype.getFollowers = function() {
         return $firebase(this.db.ref.child('/followers'));
+      };
+
+      User.prototype.getFriends = function() {
+        return $firebase(this.db.ref.child('/friends'));
       };
 
       var deferred = $q.defer();
