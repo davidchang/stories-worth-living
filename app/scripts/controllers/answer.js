@@ -64,20 +64,17 @@ angular.module('storiesWorthLivingApp')
 
       var answeredQuestions = {};
 
-      $scope.userAnswers = { $add : angular.noop };
-      meDao.then(function(me) {
-        $scope.userAnswers = me.getAnswers();
-        $scope.userAnswers.$on('loaded', function() {
-          _.each($scope.userAnswers.$getIndex(), function(key) {
-            var answer = $scope.userAnswers[key];
-            answeredQuestions[answer.questionId] = {
-              date : new Date(answer.date)
-            }
-          });
-
-          reconcileQuestionsWithAnswers();
-          $scope.userAnswers.$off('loaded');
+      $scope.userAnswers = meDao.getAnswers();
+      $scope.userAnswers.$on('loaded', function() {
+        _.each($scope.userAnswers.$getIndex(), function(key) {
+          var answer = $scope.userAnswers[key];
+          answeredQuestions[answer.questionId] = {
+            date : new Date(answer.date)
+          }
         });
+
+        reconcileQuestionsWithAnswers();
+        $scope.userAnswers.$off('loaded');
       });
 
       $scope.submit = function(isPrivate) {

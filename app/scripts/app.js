@@ -1,12 +1,6 @@
 'use strict';
 
-angular.module('storiesWorthLivingApp', ['ngRoute', 'firebase', 'facebookUtils', 'contenteditable'])
-  .constant('facebookConfigSettings', {
-    'permissions'    : 'user_photos',
-    'routingEnabled' : true,
-    'loginPath'      : '/',
-    'appID'          : '335763733225618'
-  })
+angular.module('storiesWorthLivingApp', ['ngRoute', 'firebase', 'contenteditable'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -16,12 +10,12 @@ angular.module('storiesWorthLivingApp', ['ngRoute', 'firebase', 'facebookUtils',
       .when('/answer', {
         templateUrl : 'views/answer.html',
         controller  : 'AnswerCtrl',
-        needAuth    : true
+        private     : true
       })
       .when('/admin/questions', {
         templateUrl : 'views/admin/questions.html',
         controller  : 'AdminQuestionsCtrl',
-        needAuth    : true
+        private     : true
       })
       .when('/user/:id?', {
         templateUrl: 'views/user.html',
@@ -30,7 +24,7 @@ angular.module('storiesWorthLivingApp', ['ngRoute', 'firebase', 'facebookUtils',
       .when('/me', {
         templateUrl: 'views/me.html',
         controller: 'MeCtrl',
-        needAuth    : true
+        private     : true
       })
       .otherwise({
         redirectTo : '/'

@@ -147,10 +147,6 @@ ul.horizontal {
     }
   }
 
-  a {
-    cursor: pointer;
-  }
-
   &:hover {
     opacity: 0.7;
   }
@@ -166,4 +162,8 @@ ul.horizontal {
 }
 .main-view {
   padding: 0px 64px;
+}
+
+a {
+  cursor: pointer;
 }

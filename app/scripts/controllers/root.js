@@ -2,46 +2,44 @@
 
 angular.module('storiesWorthLivingApp')
   .controller('RootCtrl', [
-    '$rootScope',
-    'facebookUser',
     '$location',
     '$scope',
-    '$q',
-    function ($rootScope, facebookUser, $location, $scope, $q) {
+    'Db',
+    'Medao',
+    function ($location, $scope, DB, me) {
 
-      var loggedInPromise;
+      $scope.user = {};
 
-      var recreatePromise = function() {
-        loggedInPromise = $q.defer();
-        $rootScope.loggedInPromise = loggedInPromise.promise;
-      };
+      var auth = new FirebaseSimpleLogin(DB.getRef(), function(error, user) {
+        if (error) {
+          // an error occurred while attempting login
+        } else if (user) {
+          // user authenticated with Firebase
+          $scope.user = user;
 
-      recreatePromise();
-
-      $rootScope.$on('fbLoginSuccess', function(name, response) {
-
-        facebookUser.then(function(user) {
-          user.api('/me').then(function(response) {
-            $rootScope.loggedInUser = response;
-            loggedInPromise.resolve();
-
+          $scope.$apply(function() {
+            me.setId(user.id);
             $location.path('/answer');
           });
-        }, function() {
-          loggedInPromise.reject();
-        });
-      });
-
-      $rootScope.$on('fbLogoutSuccess', function() {
-        $scope.$apply(function() {
-          recreatePromise();
-
-          $rootScope.loggedInUser = {};
-          loggedInPromise.reject();
-
+        } else {
+          // user is logged out
           $location.path('/');
-        });
+          me.destroyId();
+        }
       });
+
+
+      $scope.login = function() {
+        auth.login('facebook', {
+          rememberMe: true
+          // scope: 'email,user_likes'
+        });
+      };
+
+      $scope.logout = function() {
+        auth.logout();
+      };
+
     }
   ]
 );

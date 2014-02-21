@@ -36,8 +36,11 @@
             <a class="navbar-brand" href="#">Stories Worth Living</a>
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-              <li><facebook-login-button></facebook-login-button></li>
+            <ul class="nav navbar-nav navbar-right" ng-hide="user.id">
+              <li><a ng-click="login()">Log In</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-show="user.id">
+              <li><a ng-click="logout()">Log Out</a></li>
               <li><a href="#/answer">Answer</a></li>
               <li><a href="#/me">My Profile</a></li>
               <li><a href="#/user/1">User</a></li>
@@ -54,10 +57,11 @@
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="//cdn.firebase.com/v0/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
 
-    <script src="bower_components/angular-facebook-utils/src/facebookUtils.js"></script>
+    <script src="//cdn.firebase.com/v0/firebase.js"></script>
+    <script src="//cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
+    <script src="//cdn.firebase.com/js/simple-login/1.2.5/firebase-simple-login.js"></script>
+
     <script src="bower_components/angular-contenteditable/angular-contenteditable.js"></script>
 
         <!-- build:js scripts/modules.js -->

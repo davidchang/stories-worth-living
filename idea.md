@@ -82,7 +82,7 @@ Next Milestones:
 - Specify a time interval for questions (done 2/15)
 
 Considerations:
-- Switch to Firebase social Auth? especially since you've yet to really use Facebook photos or anything uniquely
+- Switch to Firebase social Auth? especially since you've yet to really use Facebook photos or anything uniquely (done 2/20)
 
 
 2/15 progress
@@ -108,10 +108,15 @@ Next Milestones:
 - Implement a Zen mode (done 2/20)
 
 Considerations:
-- Need to fix login bug that redirects back to /answer
+- Need to fix login bug that redirects back to /answer (addressed by switch to Firebase auth 2/20)
 - Look into just using Firebase hosting
 
 2/20 progress
 -------------
 - Zen Mode
 - Bootstrap navbar
+- Using Firebase for auth
+
+Next Milestones:
+- Firebase hosting/security rules
+- Need to fix bug where you're waiting to see if you're an authenticated user

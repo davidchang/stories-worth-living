@@ -4,13 +4,22 @@ angular.module('storiesWorthLivingApp')
   .service('Medao', [
     'Db',
     '$rootScope',
-    '$q',
     '$firebase',
-    function Medao(Db, $rootScope, $q, $firebase) {
+    function Medao(Db, $rootScope, $firebase) {
 
       var User = function(id) {
         this.id = id;
         this.db = Db.get('users/' + id);
+      };
+
+      User.prototype.setId = function(id) {
+        this.id = id;
+        this.db = Db.get('users/' + id);
+      };
+
+      User.prototype.destroyId = function() {
+        this.id = null;
+        this.db = null;
       };
 
       User.prototype.getAnswers = function() {
@@ -29,15 +38,7 @@ angular.module('storiesWorthLivingApp')
         return $firebase(this.db.ref.child('/friends'));
       };
 
-      var deferred = $q.defer();
-
-      $rootScope.loggedInPromise.then(function() {
-        deferred.resolve(new User($rootScope.loggedInUser.id));
-      }, function() {
-        deferred.reject();
-      });
-
-      return deferred.promise;
+      return new User();
     }
   ]
 );
