@@ -105,8 +105,13 @@ Next Milestones:
 
 Next Milestones:
 - Build notification center
-- Implement a Zen mode
+- Implement a Zen mode (done 2/20)
 
 Considerations:
 - Need to fix login bug that redirects back to /answer
 - Look into just using Firebase hosting
+
+2/20 progress
+-------------
+- Zen Mode
+- Bootstrap navbar

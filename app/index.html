@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
 </head>
-  <body ng-app="storiesWorthLivingApp" ng-controller="RootCtrl">
+  <body ng-class="{ 'zen' : zenMode, 'lights-off' : lightsOffMode }" ng-app="storiesWorthLivingApp" ng-controller="RootCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -29,24 +29,26 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <header>
-      <h1>Stories Worth Living</h1>
-      <div>
-          <facebook-login-button></facebook-login-button>
-          <a href="#/answer">Answer</a>
-          <a href="#/me">My Profile</a>
-          <a href="#/user/1">User</a>
-          <a href="#/admin/questions">Admin</a>
-      </div>
+    <header ng-hide="zenMode">
+      <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Stories Worth Living</a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><facebook-login-button></facebook-login-button></li>
+              <li><a href="#/answer">Answer</a></li>
+              <li><a href="#/me">My Profile</a></li>
+              <li><a href="#/user/1">User</a></li>
+              <li><a href="#/admin/questions">Admin</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
-    <div ng-view></div>
 
-    <footer>
-      <section>
-        {{ loggedInUser | json }}
-      </section>
-    </footer>
+    <div class="main-view" ng-view></div>
 
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>

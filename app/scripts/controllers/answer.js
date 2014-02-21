@@ -43,6 +43,17 @@ angular.module('storiesWorthLivingApp')
       $scope.nextQuestion = function() {
         $scope.questionIndex++;
       };
+
+      $scope.toggleZenMode = function() {
+        $rootScope.zenMode = !$rootScope.zenMode;
+        if (!$rootScope.zenMode) {
+          $rootScope.lightsOffMode = false;
+        }
+      };
+
+      $scope.toggleLights = function() {
+        $rootScope.lightsOffMode = !$rootScope.lightsOffMode;
+      };
       /* End Questions */
 
 
@@ -70,6 +81,8 @@ angular.module('storiesWorthLivingApp')
       });
 
       $scope.submit = function(isPrivate) {
+        $rootScope.zenMode && $scope.toggleZenMode();
+
         $scope.userAnswers.$add({
           text : $scope.answer.text,
           date : new Date(),
